@@ -52,7 +52,7 @@ class PhotoshopIndexAsset:
 
         self.write()
 
-    def write(self):
+    def write(self, keep = True):
         for i in range(len(self.files)):
             path = os.path.join("extracted", self.files[i].rsplit(".")[0])
             os.makedirs(path, exist_ok=True)
@@ -70,6 +70,9 @@ class PhotoshopIndexAsset:
                 full_path = os.path.join(path, file_name + ext)
                 with open(full_path, "wb") as f:
                     f.write(data)
+                    if not keep:
+                        del self.data
+
 
     def __str__(self):
         string = f"{self.asset_name}:\n"
